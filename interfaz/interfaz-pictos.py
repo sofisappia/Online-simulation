@@ -4,6 +4,7 @@
 from threading import Timer, Thread, Event
 import threading
 import sys, time, random
+from datetime import datetime
 from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLabel, QHBoxLayout, QGroupBox, QDialog, QVBoxLayout, QGridLayout
 from PyQt5.QtGui import QIcon, QPixmap, QColor
 from PyQt5.QtCore import (pyqtSlot, Qt, QByteArray, QPropertyAnimation,
@@ -88,6 +89,10 @@ class App(QWidget):
         img_idx = [1, 2, 3, 4]
         th = Event()
         th.wait(2)
+        #filename = 
+        file = open('trial_00.txt', 'w')
+        file.write(datetime.now().strftime("%a, %d %B %Y %H:%M:%S"))
+
         for img in range(4): # target picto
             if(img == 0):
                 self.set_label_bkg(self.label01, 'blue')
@@ -106,7 +111,7 @@ class App(QWidget):
                 th.wait(1.5)
                 self.set_label_bkg(self.label04, 'black')
 
-            for rep in range(10): #repetitions
+            for rep in range(2): #repetitions
                 random.shuffle(img_idx)
                 for i in range(len(img_idx)): #Trial
                     if(img_idx[i] == 1):
@@ -131,7 +136,7 @@ class App(QWidget):
                         th.wait(0.075)
             th.wait(2.5) #blank matrix          
       
-        
+        file.close()
         
 if __name__ == '__main__':
     
