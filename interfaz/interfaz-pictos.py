@@ -21,6 +21,9 @@ class App(QWidget):
         self.label02
         self.label03
         self.label04
+
+        self.time_ON = 0.1
+        self.time_OFF = 0.075
         
     def initUI(self):               
         
@@ -98,7 +101,7 @@ class App(QWidget):
         file.write(datetime.now().strftime("%a, %d %B %Y %H:%M:%S")+'\n')
 
         for img in range(4): # target picto
-            file.write('Target picto: ' + str(img+1)+' '+datetime.now().strftime('%H:%M:%S.%f')[:-5]+'\n')
+           # file.write('Target picto: ' + str(img+1)+' '+datetime.now().strftime('%H:%M:%S.%f')[:-5]+'\n')
             if(img == 0):
                 self.set_label_bkg(self.label01, 'blue')
                 th.wait(1.5)
@@ -116,7 +119,7 @@ class App(QWidget):
                 th.wait(1.5)
                 self.set_label_bkg(self.label04, 'black')
 
-            for rep in range(2): #repetitions
+            for rep in range(10): #repetitions
                 random.shuffle(img_idx)
                 for i in range(len(img_idx)): #Trial
                     if(img_idx[i] == 1):
@@ -125,40 +128,40 @@ class App(QWidget):
                             file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,1,1'+'\n')
                         else:
                             file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,1,0'+'\n')
-                        th.wait(0.25)
+                        th.wait(self.time_ON)
                         self.set_label_bkg(self.label01, 'black')
                         file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',0,0,0'+'\n')
-                        th.wait(0.075)
+                        th.wait(self.time_OFF)
                     elif(img_idx[i] == 2):
                         self.set_label_bkg(self.label02, 'white')
                         if img+1 == 2:
                             file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,2,1'+'\n')
                         else:
                             file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,2,0'+'\n')
-                        th.wait(0.25)
+                        th.wait(self.time_ON)
                         self.set_label_bkg(self.label02, 'black')
                         file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',0,0,0'+'\n')
-                        th.wait(0.075)
+                        th.wait(self.time_OFF)
                     elif(img_idx[i] == 3):
                         self.set_label_bkg(self.label03, 'white')
                         if img+1 == 3:
                             file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,3,1'+'\n')
                         else:
                             file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,3,0'+'\n')                        
-                        th.wait(0.25)
+                        th.wait(self.time_ON)
                         self.set_label_bkg(self.label03, 'black')
                         file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',0,0,0'+'\n')
-                        th.wait(0.075)
+                        th.wait(self.time_OFF)
                     elif(img_idx[i] == 4):
                         self.set_label_bkg(self.label04, 'white')
                         if img+1 == 4:
                             file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,4,1'+'\n')
                         else:
                             file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,4,0'+'\n')                        
-                        th.wait(0.25)
+                        th.wait(self.time_ON)
                         self.set_label_bkg(self.label04, 'black')
                         file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',0,0,0'+'\n')
-                        th.wait(0.075)
+                        th.wait(self.time_OFF)
             th.wait(2.5) #blank matrix          
       
         file.close()
