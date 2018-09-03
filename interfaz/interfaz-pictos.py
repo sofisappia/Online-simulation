@@ -86,14 +86,19 @@ class App(QWidget):
         threading.Thread(target=self.animate_).start()
 
     def animate_(self):
+        ''' Print markers in "time,flashing,stim_code,stim_type" fashion
+            flashing: 1 if matrix ON, 0 otherwise
+            stim_code: number of picto flashing (1-4), 0 if no picto flashing
+            stim_type: 1 if target flashing, 0 otherwise'''
         img_idx = [1, 2, 3, 4]
         th = Event()
         th.wait(2)
         #filename = 
         file = open('trial_00.txt', 'w')
-        file.write(datetime.now().strftime("%a, %d %B %Y %H:%M:%S"))
+        file.write(datetime.now().strftime("%a, %d %B %Y %H:%M:%S")+'\n')
 
         for img in range(4): # target picto
+            file.write('Target picto: ' + str(img+1)+' '+datetime.now().strftime('%H:%M:%S.%f')[:-5]+'\n')
             if(img == 0):
                 self.set_label_bkg(self.label01, 'blue')
                 th.wait(1.5)
@@ -116,23 +121,43 @@ class App(QWidget):
                 for i in range(len(img_idx)): #Trial
                     if(img_idx[i] == 1):
                         self.set_label_bkg(self.label01, 'white')
+                        if img+1  == 1:
+                            file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,1,1'+'\n')
+                        else:
+                            file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,1,0'+'\n')
                         th.wait(0.25)
                         self.set_label_bkg(self.label01, 'black')
+                        file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',0,0,0'+'\n')
                         th.wait(0.075)
                     elif(img_idx[i] == 2):
                         self.set_label_bkg(self.label02, 'white')
+                        if img+1 == 2:
+                            file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,2,1'+'\n')
+                        else:
+                            file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,2,0'+'\n')
                         th.wait(0.25)
                         self.set_label_bkg(self.label02, 'black')
+                        file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',0,0,0'+'\n')
                         th.wait(0.075)
                     elif(img_idx[i] == 3):
                         self.set_label_bkg(self.label03, 'white')
+                        if img+1 == 3:
+                            file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,3,1'+'\n')
+                        else:
+                            file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,3,0'+'\n')                        
                         th.wait(0.25)
                         self.set_label_bkg(self.label03, 'black')
+                        file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',0,0,0'+'\n')
                         th.wait(0.075)
                     elif(img_idx[i] == 4):
                         self.set_label_bkg(self.label04, 'white')
+                        if img+1 == 4:
+                            file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,4,1'+'\n')
+                        else:
+                            file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',1,4,0'+'\n')                        
                         th.wait(0.25)
                         self.set_label_bkg(self.label04, 'black')
+                        file.write(datetime.now().strftime('%H:%M:%S.%f')[:-5]+',0,0,0'+'\n')
                         th.wait(0.075)
             th.wait(2.5) #blank matrix          
       
